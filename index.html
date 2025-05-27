@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusantara Tech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a1020; 
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .top-banner {
+            background-color: rgba(30, 58, 138, 0.3);
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .footer-banner {
+            background-color: #1e3a8a;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border-top: 1px solid #3498db;
+            margin-top: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+        }
+
+        .blue-text {
+            color: #3498db;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .impostor-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #3498db;
+            object-fit: cover;
+        }
+
+        .clues {
+            padding: 80px 0;
+        }
+
+        .clues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature-box {
+            background-color: rgba(22, 30, 46, 0.9);
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            border-color: #60a5fa;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .matrix-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .close-matrix {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .matrix-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+    
+        .math-matrix {
+            color: #4ade80;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+            flex: 1;
+            max-height: 80vh;
+            overflow-y: auto;
+            background-color: rgba(14, 23, 38, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #3498db;
+        }
+    
+        .math-matrix table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+    
+        .math-matrix td {
+            padding: 5px 15px;
+            text-align: center;
+        }
+    
+        .password-form {
+            position: relative;
+            z-index: 101;
+            background-color: rgba(14, 23, 38, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #3498db;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background-color: #0a0e17;
+            border: 1px solid #1e293b;
+            color: #fff;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .password-result {
+            margin-top: 15px;
+            font-family: monospace;
+            min-height: 40px;
+        }
+
+        .impostor-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .impostor-modal-content {
+            background-color: rgba(14, 23, 38, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #3498db;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .impostor-modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .impostor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .impostor-option {
+            padding: 10px;
+            background-color: #0a0e17;
+            border: 1px solid #1e293b;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .impostor-option:hover {
+            background-color: #1e293b;
+            border-color: #3498db;
+        }
+
+        .close-impostor-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .result-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .result-modal-content {
+            background-color: rgba(14, 23, 38, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #3498db;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: modalAppear 0.5s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            color: #4ade80;
+        }
+
+        .wrong-answer {
+            color: #ef4444;
+        }
+
+        .result-explanation {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+
+        .close-result-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-result-modal:hover {
+            color: #3498db;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                min-height: 60vh;
+                text-align: center;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .matrix-container {
+                flex-direction: column;
+            }
+            
+            .math-matrix {
+                font-size: 14px;
+                max-height: 50vh;
+            }
+            
+            .top-banner {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .clues-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 20px 0;
+            }
+            
+            .clues {
+                padding: 40px 0;
+            }
+            
+            .feature-box {
+                height: 160px;
+                padding: 20px;
+            }
+            
+            .feature-icon {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkBg" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>  
+    <div id="vanta-bg">
+    <div class="top-banner">
+        <div>Nusantara Tech</div>
+        <div>Grup 2</div>
+    </div>   
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="title">Grup 2 <br><span class="blue-text">Unsolved Case</span><br> Nusantara Tech </h1>
+                <p class="subtitle">Dapatkan petunjuk dan tentukan tersangka dari musibah yang menimpa Nusantara Tech</p>
+                <div class="btn-group">
+                    <button class="btn" id="guessNowBtn">Tentukan Tersangka</button>
+                    <button class="btn" id="getCluesBtn" style="background-color: transparent; border: 1px solid #3498db;">Dapatkan Petunjuk</button>
+                </div>
+            </div>          
+            <div class="hero-img">
+                <img class="impostor-image" src="Image.png" alt="Case Image">
+            </div>
+        </section>       
+        <section class="clues" id="cluesSection">
+            <div class="clues-grid">
+                <div class="feature-box" data-password="logic core">
+                    <div class="feature-icon">🟢</div>
+                    <h3 class="feature-title">Mudah 1</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="neural path">
+                    <div class="feature-icon">🟢</div>
+                    <h3 class="feature-title">Mudah 2</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="code frame">
+                    <div class="feature-icon">🟢</div>
+                    <h3 class="feature-title">Mudah 3</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="binary key">
+                    <div class="feature-icon">🟢</div>
+                    <h3 class="feature-title">Mudah 4</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="smart loop">
+                    <div class="feature-icon">🟢</div>
+                    <h3 class="feature-title">Mudah 5</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="data science pipeline">
+                    <div class="feature-icon">🟠</div>
+                    <h3 class="feature-title">Sedang 1</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="neural network training">
+                    <div class="feature-icon">🟠</div>
+                    <h3 class="feature-title">Sedang 2</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="model deployment system">
+                    <div class="feature-icon">🟠</div>
+                    <h3 class="feature-title">Sedang 3</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="artificial intelligence enhances human decision making">
+                    <div class="feature-icon">🔴</div>
+                    <h3 class="feature-title">Sulit 1</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+                <div class="feature-box" data-password="machine learning optimizes smart predictive systems">
+                    <div class="feature-icon">🔴</div>
+                    <h3 class="feature-title">Sulit 2</h3>
+                    <p class="feature-text">Pecahkan Kode Matriks</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="footer-banner">Properti milik Grup 2 Matematika IV 24/25</div>
+    <div class="matrix-overlay" id="matrixOverlay">
+        <span class="close-matrix" id="closeMatrix">×</span>     
+        <div class="matrix-container">
+            <div class="math-matrix" id="mathMatrix"></div>          
+            <div class="password-form">
+                <h3>Enter Password</h3>
+                <input type="text" id="passwordInput" class="password-input" placeholder="Password..." autocomplete="off">
+                <button class="btn" id="submitPassword">Submit</button>
+                <div class="password-result" id="passwordResult"></div>
+            </div>
+        </div>
+    </div>
+    <div class="impostor-modal" id="impostorModal">
+        <span class="close-impostor-modal" id="closeImpostorModal">×</span>
+        <div class="impostor-modal-content">
+            <h3 class="impostor-modal-title">Pilih 1 Sebagai Pelaku</h3>
+            <div class="impostor-list">
+                <div class="impostor-option">Rafa Ardian</div>
+                <div class="impostor-option">Maya Hwang</div>
+                <div class="impostor-option">Bima Adikara</div>
+                <div class="impostor-option">Sasha Ilyanova</div>
+                <div class="impostor-option">Leonardo Wibowo</div>
+            </div>
+            <button class="btn" id="submitImpostorGuess">Cek Jawabanmu!</button>
+        </div>
+    </div>
+    <div class="result-modal" id="resultModal">
+        <span class="close-result-modal" id="closeResultModal">×</span>
+        <div class="result-modal-content">
+            <h3 class="result-title" id="resultTitle"></h3>
+            <div class="result-explanation" id="resultExplanation"></div>
+            <button class="btn" id="closeResultBtn">Tutup</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('networkBg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = document.documentElement.scrollHeight;
+
+        let points = [];
+        let mouseX = 0, mouseY = 0;
+        const maxDistance = 200;
+        const pointCount = Math.min(100, Math.floor(window.innerWidth / 15)); // Adjust point count based on screen size
+        let animationFrameId;
+        function initPoints() {
+            points = [];
+            for (let i = 0; i < pointCount; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    connections: []
+                });
+            }
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#0a1020');
+            gradient.addColorStop(1, '#152442');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            points.forEach(point => {
+                point.x += point.vx;
+                point.y += point.vy;
+                if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
+                if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
+                const dx = mouseX - point.x;
+                const dy = mouseY - point.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < maxDistance) {
+                    point.x -= dx * 0.005;
+                    point.y -= dy * 0.005;
+                }
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#5eb5ff';
+                ctx.fill();
+                points.forEach(otherPoint => {
+                    if (point === otherPoint) return;
+                    const dx = otherPoint.x - point.x;
+                    const dy = otherPoint.y - point.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < maxDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(point.x, point.y);
+                        ctx.lineTo(otherPoint.x, otherPoint.y);
+                        ctx.strokeStyle = `rgba(94, 181, 255, ${1 - distance / maxDistance * 0.7})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                });
+            });
+            animationFrameId = requestAnimationFrame(animate);
+        }       
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY + window.scrollY;
+        });
+        function handleResize() {
+            canvas.width = window.innerWidth;
+            canvas.height = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+            initPoints();
+        }
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', () => {
+            canvas.style.top = '0px';
+        });
+        handleResize();
+        animate();
+        function generateMatrix(featureType) {
+            let matrixHTML = '<table>';
+            matrixHTML += '<tr><td style="border-left: 2px solid #4ade80; border-top: 2px solid #4ade80; border-bottom: 2px solid #4ade80;"></td>';
+            matrixHTML += '<td style="border-right: 2px solid #4ade80; border-top: 2px solid #4ade80; border-bottom: 2px solid #4ade80;"></td></tr>';         
+            let matrixValues; 
+            switch(featureType) {
+                case 'logic core':
+                    matrixValues = [
+                        [81, 99], [48, 59], [9, 6], [54, 81], [69, 61]
+                    ];
+                    break;
+                case 'neural path':
+                    matrixValues = [
+                        [57, 53], [117, 132], [39, 62], [48, 80], [63, 102], 
+                        [24,16]
+                    ];
+                    break;
+                case 'code frame':
+                    matrixValues = [
+                        [54, 81], [27, 33], [18, 30], [57, 41], [54, 51]
+                    ];
+                    break;
+                case 'binary key':
+                    matrixValues = [
+                        [33, 49], [45, 33], [129, 161], [33, 55], [90, 135]
+                    ];
+                    break;
+                case 'smart loop':
+                    matrixValues = [
+                        [96, 103], [57, 92], [60, 40], [81, 99], [93, 110]
+                    ];
+                    break;
+                case 'data science pipeline':
+                    matrixValues = [
+                        [15, 13], [63, 45], [57, 95], [36, 51], [57, 80],
+                        [24, 31], [48, 80], [75, 98], [51, 70], [69, 88],
+                        [15, 10]
+                    ];
+                    break;
+                case 'neural network training':
+                    matrixValues = [
+                        [57, 53], [117, 132], [39, 62], [42, 70], [75, 110],
+                        [114, 121], [87, 91], [60, 100], [57, 41], [69, 88],
+                        [69, 88], [21, 14]
+                    ];
+                    break;
+                case 'model deployment system':
+                    matrixValues = [
+                        [84, 101], [27, 33], [36, 24], [27, 33], [84, 92],
+                        [120, 155], [54, 51], [102, 128], [57, 95], [132, 145],
+                        [75, 65], [39, 26]
+                    ];
+                    break;
+                case 'artificial intelligence enhances human decision making':
+                    matrixValues = [
+                        [57, 56], [87, 85], [45, 48], [36, 33], [39, 62],
+                        [27, 33], [102, 122], [51, 70], [63, 69], [36, 41],
+                        [51, 57], [15, 10], [57, 67], [30, 29], [51, 57],
+                        [72, 77], [24, 40], [102, 101], [39, 62], [12, 20],
+                        [24, 25], [84, 77], [72, 87], [42, 28], [41, 41],
+                        [60, 63], [63, 73]
+                    ];
+                    break;
+                case 'machine learning optimizes smart predictive systems':
+                    matrixValues = [
+                        [42, 41], [33, 34], [69, 73], [15, 10], [51, 61],
+                        [57, 56], [69, 73], [63, 73], [45, 75], [108, 124],
+                        [66, 77], [105, 123], [72, 77], [57, 95], [42, 41],
+                        [114, 124], [48, 50], [69, 73], [39, 62], [69, 90],
+                        [93, 101], [15, 10], [132, 145], [113, 145], [57, 67],
+                        [57, 38]
+                    ];
+                    break;
+                default:
+                    matrixValues = [[1, 1], [1, 1]];
+            }
+            for (let i = 0; i < matrixValues.length; i++) {
+                matrixHTML += '<tr>';
+                matrixHTML += `<td style="border-left: 2px solid #4ade80;">`;
+                matrixHTML += matrixValues[i][0];
+                matrixHTML += '</td>';
+                matrixHTML += `<td style="border-right: 2px solid #4ade80;">`;
+                matrixHTML += matrixValues[i][1];
+                matrixHTML += '</td>';
+                matrixHTML += '</tr>';
+            }
+            matrixHTML += '<tr><td style="border-left: 2px solid #4ade80; border-top: 2px solid #4ade80; border-bottom: 2px solid #4ade80;"></td>';
+            matrixHTML += '<td style="border-right: 2px solid #4ade80; border-top: 2px solid #4ade80; border-bottom: 2px solid #4ade80;"></td></tr>';
+            matrixHTML += '</table>';
+            return matrixHTML;
+        }
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        const matrixOverlay = document.getElementById('matrixOverlay');
+        const closeMatrix = document.getElementById('closeMatrix');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitPassword = document.getElementById('submitPassword');
+        const passwordResult = document.getElementById('passwordResult');
+        const mathMatrix = document.getElementById('mathMatrix');
+        let currentFeaturePassword = '';
+        document.getElementById('getCluesBtn').addEventListener('click', () => {
+            document.getElementById('cluesSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        featureBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                currentFeaturePassword = box.dataset.password;
+                matrixOverlay.style.display = 'flex';   
+                mathMatrix.innerHTML = generateMatrix(currentFeaturePassword);               
+                passwordInput.value = '';
+                passwordResult.textContent = '';
+                passwordInput.focus();
+            });
+        });
+        closeMatrix.addEventListener('click', () => {
+           matrixOverlay.style.display = 'none';
+        });
+        submitPassword.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+        function checkPassword() {
+            const enteredPassword = passwordInput.value.toLowerCase();
+            const correctPassword = currentFeaturePassword.toLowerCase();
+            if (enteredPassword === correctPassword) {
+                let clueText = ""  
+                switch(correctPassword.toLowerCase()) {
+                    case 'logic core':
+                        clueText = "CCTV mati selama 3 menit pada lantai 17.";
+                        break;
+                    case 'neural path':
+                        clueText = "Sepatu hak tinggi patah ditemukan di ruang server.";
+                        break;
+                    case 'code frame':
+                        clueText = "Parfum mahal tercium di ruang server.";
+                        break;
+                    case 'binary key':
+                        clueText = "Log USB terekam di sistem pusat";
+                        break;
+                    case 'smart loop':
+                        clueText = "Rafa tidak punya log aktivitas komputer pada pukul 03:00 – 04:00.";
+                        break;
+                    case 'data science pipeline':
+                        clueText = "Sepatu Maya dipinjam oleh Sasha.";
+                        break;
+                    case 'neural network training':
+                        clueText = "Data biometrik Sasha aktif hingga pukul 03:30 meskipun ia pulang pukul 21:00.";
+                        break;
+                    case 'model deployment system':
+                        clueText = "Jejak sepatu Bima tidak cocok dengan arah kamera.";
+                        break;
+                    case 'artificial intelligence enhances human decision making':
+                        clueText = "Log akses terakhir sistem backup menunjukkan file Nexora diekspor oleh user legal, bukan teknis.";
+                        break;
+                    case 'machine learning optimizes smart predictive systems':
+                        clueText = "Leonardo mengakses file enkripsi teknis dan mengirim file terenkripsi ke luar negeri.";
+                        break;
+                    default:
+                        clueText = "No clue available.";
+                }
+                    passwordResult.textContent = '✓ Benar! Clue: ' + clueText;
+                    passwordResult.style.color = '#4ade80';
+                    } else {
+                    passwordResult.textContent = '✗ Password salah. Coba lagi.';
+                    passwordResult.style.color = '#ef4444';
+                    }
+                }
+    const impostorModal = document.getElementById('impostorModal');
+    const guessNowBtn = document.getElementById('guessNowBtn');
+    const closeImpostorModal = document.getElementById('closeImpostorModal');
+    const impostorOptions = document.querySelectorAll('.impostor-option');
+    const submitImpostorGuess = document.getElementById('submitImpostorGuess');
+    function openImpostorModal() {
+        impostorModal.style.display = 'flex';
+    }
+    function showResultModal(selectedName, correctAnswer) {
+        const resultModal = document.getElementById('resultModal');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultExplanation = document.getElementById('resultExplanation');
+        if (selectedName === correctAnswer) {
+            resultTitle.textContent = '🎉 Benar!';
+            resultTitle.className = 'result-title correct-answer';
+            resultExplanation.innerHTML = `
+                <strong>Selamat!</strong> Anda berhasil mengidentifikasi Leonardo Wibowo sebagai pelaku.<br><br>
+                <strong>Case Summary:</strong><br>
+                Leonardo menggunakan akses hukumnya untuk mengeksploitasi kerentanan teknis, mengakses file terenkripsi, 
+                dan mengirimkan data Nexora yang sensitif secara internasional. Bukti dari petunjuk tersebut mengarah 
+                pada seseorang yang memiliki kewenangan hukum dan pengetahuan teknis - Leonardo sangat cocok dengan profil ini.`;
+        } else {
+            resultTitle.textContent = '❌ Salah';
+            resultTitle.className = 'result-title wrong-answer';
+            resultExplanation.innerHTML = `
+                <strong>Maaf, jawaban anda tidak benar.</strong><br><br>
+                Jawaban yang benar adalah <strong>Leonardo Wibowo</strong>.<br><br>
+                <strong>Mengapa Leonardo?</strong><br>
+                Petunjuk tersebut mengungkapkan bahwa Leonardo memiliki akses legal ke sistem tersebut, 
+                mengakses berkas teknis terenkripsi, dan mengirim data terenkripsi ke luar negeri. 
+                Tidak seperti orang lain yang memiliki alibi atau bukti yang tidak cocok, 
+                tindakan Leonardo secara langsung sesuai dengan pola pelanggaran data.`;
+        }
+        resultModal.style.display = 'flex';
+    }
+    guessNowBtn.addEventListener('click', openImpostorModal);
+    closeImpostorModal.addEventListener('click', () => {
+        impostorModal.style.display = 'none';
+    });
+    impostorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            impostorOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.backgroundColor = '#0a0e17';
+                opt.style.borderColor = '#1e293b';
+            });
+            option.classList.add('selected');
+            option.style.backgroundColor = '#1e3a8a';
+            option.style.borderColor = '#3498db';
+        });
+    });
+    submitImpostorGuess.addEventListener('click', () => {
+        const selectedOption = document.querySelector('.impostor-option.selected');
+        if (selectedOption) {
+            const selectedName = selectedOption.textContent;
+            const correctAnswer = 'Leonardo Wibowo';
+            impostorModal.style.display = 'none';
+            showResultModal(selectedName, correctAnswer);
+        } else {
+            alert('Please select an impostor!');
+        }
+    });
+    document.getElementById('closeResultModal').addEventListener('click', () => {
+        document.getElementById('resultModal').style.display = 'none';
+    });
+    document.getElementById('closeResultBtn').addEventListener('click', () => {
+        document.getElementById('resultModal').style.display = 'none';
+    });
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x1b336e,
+        backgroundColor: 0x0a0e1a,
+        points: 16.00,
+        maxDistance: 28.0,
+        spacing: 14.00,
+        showDots: false
+    });
+  </script>
+</div>
+</body>
+</html>
